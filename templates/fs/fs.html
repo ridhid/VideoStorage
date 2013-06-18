@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="span4">
+            <div class="row">
+                <!--Заголовок. Обратный путь заголовок держит. -->
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <a class="brand" gref="#">Storage</a>
+                        <ul class="nav">
+                            {% for dir in fs.back_path %}
+                                <li>
+                                    <a href="#">{{ dir }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!--Тело с папками-->
+                <ul class="unstyled">
+                    {% for dir in fs.directories %}
+                        <li>
+                            <a href="#">{{ dir }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <!--!Продолжение с файлами-->
+                <ul class="unstyled">
+                    {% for file in fs.files_url %}
+                        <li>
+                            <a href={{ file }}>{{ file }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
