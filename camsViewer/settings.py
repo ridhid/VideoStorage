@@ -56,7 +56,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+#  MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -79,6 +79,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(PROJECT_ROOT, 'third_party', 'components', 'projekktor'),
+    '/home/ridhid'
 )
 
 # List of finder classes that know how to find static files in
@@ -135,13 +137,14 @@ INSTALLED_APPS = (
     'south',
     'djangobower',
     #########
-    'apps.fs',
+    'apps.video',
 )
 
 BOWER_INSTALLED_APPS = (
     'jquery',
     'knockout',
-    'sammy'
+    'sammy',
+    'projekktor',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,5 +177,6 @@ LOGGING = {
 }
 
 # VIDEO_ROOT = '/home/user'
-VIDEO_ROOT = '/home/ridhid'
-VIDEO_URL_PREFIX = '/media'
+VIDEO_ROOT = '/home/ridhid/'
+VIDEO_URL_PREFIX = '/media/'
+# VIDEO_URL_PREFIX = '/file?file='

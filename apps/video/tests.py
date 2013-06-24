@@ -9,7 +9,8 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import Client
-from apps.fs.models import FSModel
+from apps.video.models import FsUrlModel
+from apps.video.models import Link
 
 
 class ModelsTest(TestCase):
@@ -31,7 +32,7 @@ class ModelsTest(TestCase):
         '/home/ridhid/lounge3-1'
     ]
     exp_back_path = [
-        ['job', 'Dropbox'],
+        ['Dropbox', 'job'],
         ['Dropbox'],
         [],
         [],
@@ -57,8 +58,8 @@ class ModelsTest(TestCase):
     exp_files = [
         [],
         [],
-        [],
-        [],
+        ["Bestamvsofalltime_Binary_Overdrive_AMV.mp4"],
+        ["Bestamvsofalltime_Binary_Overdrive_AMV.mp4"],
         [],
         ['lounge3-1 19:19:32.avi', 'lounge3-2 19:19:32.avi']
     ]
@@ -68,11 +69,14 @@ class ModelsTest(TestCase):
         [],
         [],
         [],
-        ['/media/lounge3-1/lounge3-1 19:19:32.avi', '/media/lounge3-1/lounge3-2 19:19:32.avi']
+        [
+            Link('lounge3-1 19:19:32.avi', 'file', '/media/lounge3-1/lounge3-1 19:19:32.avi'),
+            Link('lounge3-2 19:19:32.avi', 'file', '/media/lounge3-1/lounge3-2 19:19:32.avi')
+        ]
     ]
 
     def setUp(self):
-        self.fs = FSModel()
+        self.fs = FsUrlModel()
 
     def test_moving(self):
         def test(path, equal):
@@ -99,14 +103,6 @@ class ModelsTest(TestCase):
 
         map(lambda path, equal: test(path, equal), self.move, self.exp_back_path)
 
-    def test_dir(self):
-        def test(path, equal):
-            self.fs.into(path)
-            self.assertListEqual(self.fs.directories, equal)
-            self.fs.to_root()
-
-        map(lambda path, equal: test(path, equal), self.move, self.exp_dirs)
-
     def test_files(self):
         def test(path, equal):
             self.fs.into(path)
@@ -115,19 +111,36 @@ class ModelsTest(TestCase):
 
         map(lambda path, equal: test(path, equal), self.move, self.exp_files)
 
-    def test_to_urls(self):
-        def test(path, equal):
-            self.fs.into(path)
-            self.assertListEqual(self.fs.files_url, equal)
-            self.fs.to_root()
+    # def test_to_urls(self):
+    #     def test(path, equal):
+    #         self.fs.into(path)
+    #         self.assertListEqual(self.fs.files_url, equal)
+    #         self.fs.to_root()
+    #
+    #     map(lambda path, equal: test(path, equal), self.move, self.exp_urls)
 
-        map(lambda path, equal: test(path, equal), self.move, self.exp_urls)
-
+    def test_dir_url(self):
+        self.fs.into('lounge3-1')
+        self.assertNotEqual(self.fs.dir_url, None)
 
 class ViewFSCase(TestCase):
     client = Client()
 
     def test_view_fs(self):
-        url = reverse('fs')
+        url = reverse('video')
         response = self.client.get(url)
         self.assertContains(response, '/static', status_code=200)
+
+    def test_view_fs_AJAX(self):
+        args = (
+            dict(format='json', path="Dropbox"),
+            dict(format='json', path="Dropbox/job"),
+            dict(format='json', path="/Dropbox/job"),
+            dict(format='json', path="/Dropbox", page=1),
+            # dict(format='json', path="", page=2),
+        )
+        url = reverse('video')
+        for arg_set in args:
+            response = self.client.get(url, arg_set)
+            self.assertEqual(response.status_code, 200)
+            print response.content
