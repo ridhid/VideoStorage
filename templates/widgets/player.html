@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div data-bind="if: video">
+    <video controls>
+        <source data-bind="attr: {src: video}" type='video/ogg; codecs="theora, vorbis"'/>
+    </video>
+</div>

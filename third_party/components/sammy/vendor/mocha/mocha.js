@@ -242,9 +242,9 @@ EventEmitter.prototype.emit = function (name) {
 };
 }); // module: browser/events.js
 
-require.register("browser/fs.js", function(module, exports, require){
+require.register("browser/video.js", function(module, exports, require){
 
-}); // module: browser/fs.js
+}); // module: browser/video.js
 
 require.register("browser/path.js", function(module, exports, require){
 
@@ -1500,7 +1500,7 @@ require.register("reporters/html-cov.js", function(module, exports, require){
  */
 
 var JSONCov = require('./json-cov')
-  , fs = require('browser/fs');
+  , fs = require('browser/video');
 
 /**
  * Expose `HTMLCov`.
@@ -3731,7 +3731,7 @@ require.register("utils.js", function(module, exports, require){
  * Module dependencies.
  */
 
-var fs = require('browser/fs')
+var fs = require('browser/video')
   , path = require('browser/path')
   , join = path.join
   , debug = require('browser/debug')('watch');

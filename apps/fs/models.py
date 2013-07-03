@@ -6,45 +6,46 @@ from os.path import isfile
 from os.path import isdir
 from camsViewer import settings
 
+
 class Link(object):
     name = None
     url = None
-    type = None
+    link_type = None
     available_type = [
         'dir',
         'file'
     ]
 
-    def __init__(self, name, type, url=None):
+    def __init__(self, name, link_type, url=None):
         self.name = name
-        if type in self.available_type:
-            self.type = type
+        if link_type in self.available_type:
+            self.link_type = link_type
         else:
             raise TypeError
         if url:
             self.url = url
 
     def to_dict(self):
-        return dict(name=self.name, type=self.type, url=self.url)
+        return dict(name=self.name, type=self.link_type, url=self.url)
 
     def __unicode__(self):
-        return ", ".join((self.name, self.type))
+        return ", ".join((self.name, self.link_type))
 
     def __repr__(self):
         return self.__unicode__()
 
     def __eq__(self, other):
-        return self.name == other.name and self.type == other.type\
+        return self.name == other.name and self.link_type == other.type\
             and self.url == other.url
 
 
-#todo рекурсивный поиск видео
+#todo суперкласс, реализующий заполнение аттрибутов из *args конструктора
 class FsModel(object):
     """simple file browser
 
     search files with math in extension
     """
-    extensions = ('.avi', '.mp4')
+    exts = ('.ogg')
     exclude = ('^\.',)
     root = settings.VIDEO_ROOT
     url_prefix = settings.VIDEO_URL_PREFIX
@@ -68,15 +69,18 @@ class FsModel(object):
             return isdir(os.path.join(self.cwd, path))
         def is_exc(path):
             return any(map(lambda pattern: re.match(pattern, path), self.exclude))
-        return (path for path in self.all if is_dir(path) and not is_exc(path))
+        return [path for path in self.all if is_dir(path) and not is_exc(path)]
 
     @property
     def files(self):
         def ext_check(path):
-            return any(map(lambda e: path.endswith(e), self.extensions))
+            return any(map(lambda e: path.endswith(e), self.exts))
         def is_file(path):
             return isfile(os.path.join(self.cwd, path))
-        return [path for path in self.all if ext_check(path) and is_file(path)]
+        files = [path for path in self.all if is_file(path)]
+        if self.exts:
+            files = filter(lambda path: ext_check(path), files)
+        return files
 
     @property
     def dir(self):

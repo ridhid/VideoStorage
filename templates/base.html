@@ -4,22 +4,42 @@
     <title></title>
     {% load static %}
     <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
+
+    {% block link %}
+    {% endblock %}
     <style>
         {% block style %}
         {% endblock %}
     </style>
 </head>
 <body>
-
-    {% block body %}
-    {% endblock %}
+    <div class="page-header">
+        <h1 align="center">Сервер. Видео сервер.</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <!--fs-->
+            <div class="offset1 span3">
+                {% include 'widgets/fs.html' %}
+                {% include 'widgets/pagination.html' %}
+            </div>
+            <!--player-->
+            <div class="span7">
+                {% include 'widgets/player.html' %}
+            </div>
+        </div>
+    </div>
 </body>
 
-<script type="text/javascript" src='{% static 'jquery/jquery.js' %}'></script>
+<script type="text/javascript" src='{% static 'jquery/jquery.min.js' %}'></script>
 <script type="text/javascript" src='{% static 'knockout/build/output/knockout-latest.js' %}'></script>
-<script type="text/javascript" src='{% static 'bootstrap/js/bootstrap.js' %}'></script>
+<script type="text/javascript" src='{% static 'bootstrap/js/bootstrap.min.js' %}'></script>
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
+<script type="text/javascript">
+    url = "{% url 'fs' %}";
+    {% include 'js/main.js' %}
+</script>
 {% block js %}
 {% endblock %}
 </html>

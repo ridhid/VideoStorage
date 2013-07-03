@@ -79,8 +79,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'static'),
-    os.path.join(PROJECT_ROOT, 'third_party', 'components', 'projekktor'),
-    '/home/ridhid'
+    os.path.join(PROJECT_ROOT, 'third_party', 'components')
 )
 
 # List of finder classes that know how to find static files in
@@ -109,8 +108,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'camsViewer.urls'
@@ -137,14 +134,13 @@ INSTALLED_APPS = (
     'south',
     'djangobower',
     #########
-    'apps.video',
+    'apps.fs',
 )
 
 BOWER_INSTALLED_APPS = (
     'jquery',
     'knockout',
     'sammy',
-    'projekktor',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -176,7 +172,9 @@ LOGGING = {
     }
 }
 
-# VIDEO_ROOT = '/home/user'
-VIDEO_ROOT = '/home/ridhid/'
+VIDEO_ROOT = '/home/user/camera'
+# VIDEO_ROOT = '/home/ridhid/'
 VIDEO_URL_PREFIX = '/media/'
 # VIDEO_URL_PREFIX = '/file?file='
+
+print STATICFILES_DIRS

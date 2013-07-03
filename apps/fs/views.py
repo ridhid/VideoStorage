@@ -3,7 +3,6 @@
 
 import os
 from json import dumps
-from django.views.generic import TemplateView
 from django.views.generic import View
 from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
@@ -11,15 +10,16 @@ from django.core.paginator import Paginator
 from camsViewer import settings
 from models import FsUrlModel
 
-class FS(TemplateView):
+
+class FS(View):
     pagination_by = 18
-    template_name = 'base.html'
     page_sign = 'page'
     path_sign = 'path'
     format_sign = 'format'
-    model = FsUrlModel()
+
 
     def get_fs(self):
+        self.model = FsUrlModel()
         self.model.into(self.path)
         return self.model
 
@@ -59,16 +59,14 @@ class FS(TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.get_args(request, *args, **kwargs)
-        if self.ishtml():
-            return self.render_to_response(dict())
         return self.render_to_json()
 
 
-class FileOut(View):
+class DownloadFile(View):
     def get(self, request):
         filename = os.path.join(settings.VIDEO_ROOT, request.GET.get('file'))
         wrapper = FileWrapper(file(filename))
-        response = HttpResponse(wrapper, content_type='video/mpeg4')
+        response = HttpResponse(wrapper, content_type='fs/mpeg4')
         response['Content-Length'] = os.path.getsize(filename)
         response["Cache-Control"] = "no-cache, no-store, must-revalidate"
         return response
