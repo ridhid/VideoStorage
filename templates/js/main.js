@@ -5,6 +5,11 @@
  * Time: 15:52
  * To change this template use File | Settings | File Templates.
  */
+function Visible(video, config) {
+    this.video = video ? true : false;
+    this.config = config ? true : false;
+}
+
 function AppViewModel(){
     var self = this;
     this.dir = ko.observable();
@@ -12,6 +17,8 @@ function AppViewModel(){
     this.page = ko.observable();
     this.cwd = ko.observable("root");
     this.video = ko.observable(false);
+    this.config = ko.observable();
+    this.visible = ko.observable(new Visible(true))
     this.previous_page = function() {
         if (self.page().previous) {
             var page = self.page();
@@ -63,6 +70,13 @@ function AppViewModel(){
         if (params.page != null && params.cwd != null)
             location.hash = 'fs/' + params.cwd + '/' + params.page.current;
     }, this);
+    this.to_video = function() {
+        self.visible(new Visible(true, false));
+    };
+    this.to_config = function() {
+        self.config() ? true : location.hash = "settings/config";
+        self.visible(new Visible(false, true));
+    };
     Sammy(function() {
         this.get('#fs/:path/:page', function() {
             var path = this.params.path == "root" ? "" : this.params.path.replace(/\|/g, '/');
@@ -72,6 +86,11 @@ function AppViewModel(){
                 self.page(data.page);
             })
         });
+        this.get('#settings/config', function() {
+            $.get(config_url, function(data) {
+                self.config(data);
+            })
+        })
     }).run('#fs/root/1');
 }
 

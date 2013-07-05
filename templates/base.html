@@ -14,9 +14,11 @@
 </head>
 <body>
     <div class="page-header">
+        {% include "widgets/navbar.html" %}
         <h1 align="center">Сервер. Видео сервер.</h1>
     </div>
-    <div class="container-fluid">
+    {% block content %}
+    <div class="container-fluid" data-bind="if: visible().video">
         <div class="row-fluid">
             <!--fs-->
             <div class="offset1 span3">
@@ -29,6 +31,8 @@
             </div>
         </div>
     </div>
+    {% include 'widgets/config.html' %}
+    {% endblock %}
 </body>
 
 <script type="text/javascript" src='{% static 'jquery/jquery.min.js' %}'></script>
@@ -37,8 +41,11 @@
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
 <script type="text/javascript">
-    url = "{% url 'fs' %}";
-    {% include 'js/main.js' %}
+    {%  block script %}
+        url = "{% url 'fs' %}";
+        config_url = "{% url 'config' %}"
+        {% include 'js/main.js' %}
+    {% endblock %}
 </script>
 {% block js %}
 {% endblock %}

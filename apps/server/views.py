@@ -1,14 +1,19 @@
-#codinf: utf-8
+#coding: utf-8
 # Create your views here.
 
-from django.views.generic import TemplateView
+from json import dumps
+from django.views.generic import View
+from django.http import HttpResponse
+from models import Config
 
-#todo статические хар-ки
 #todo простенькое управление
 
-class ServerInfo(TemplateView):
-    template_name = None
+class ConfigView(View):
+    template_name = "objects/config.html"
+    model = Config
 
     def get(self, request):
-        context = self.get_context_data()
-        return self.render_to_response(context)
+        model = self.model()
+        to_json = dumps(model.to_dict())
+        return HttpResponse(to_json,
+                            content_type='application/json')
