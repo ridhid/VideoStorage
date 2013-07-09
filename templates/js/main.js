@@ -19,6 +19,7 @@ function AppViewModel(){
     this.video = ko.observable(false);
     this.config = ko.observable();
     this.visible = ko.observable(new Visible(true))
+    this.info = ko.observable(false);
     this.previous_page = function() {
         if (self.page().previous) {
             var page = self.page();
@@ -62,7 +63,6 @@ function AppViewModel(){
             self.to_root();
     };
     this.location_hash = ko.computed(function() {
-        console.log('yeeehhh!');
         var params = {
             cwd: self.cwd(),
             page: self.page()
@@ -74,8 +74,20 @@ function AppViewModel(){
         self.visible(new Visible(true, false));
     };
     this.to_config = function() {
-        self.config() ? true : location.hash = "settings/config";
+        if (!self.config())
+            location.hash = "settings/config";
         self.visible(new Visible(false, true));
+    };
+    this.server_control = function(server) {
+        var action = server.status === 'RUNNING' ? 'stop': 'start';
+        $.get(control_url, {action: action}, function(data) {
+            //todo обработчик ошибок
+            load_info();
+            console.log(data);
+        });
+    };
+    this.server_control_restart = function() {
+        $.get(control_url, {action: 'restart'});
     };
     Sammy(function() {
         this.get('#fs/:path/:page', function() {
@@ -85,6 +97,7 @@ function AppViewModel(){
                 self.back_path(add_root(data.back_path));
                 self.page(data.page);
             })
+            load_info();
         });
         this.get('#settings/config', function() {
             $.get(config_url, function(data) {
@@ -97,6 +110,13 @@ function AppViewModel(){
 function add_root(bp) {
     return bp.reverse(), bp.push('root'), bp.reverse(), bp;
 }
+
+function load_info() {
+    $.get(info_url, function(data) {
+        Model.info(data);
+    })
+}
+
 
 $(document).ready(function() {
     Model = new AppViewModel();

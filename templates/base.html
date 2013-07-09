@@ -21,13 +21,16 @@
     <div class="container-fluid" data-bind="if: visible().video">
         <div class="row-fluid">
             <!--fs-->
-            <div class="offset1 span3">
+            <div class="span3">
                 {% include 'widgets/fs.html' %}
                 {% include 'widgets/pagination.html' %}
             </div>
             <!--player-->
-            <div class="span7">
+            <div class="span6">
                 {% include 'widgets/player.html' %}
+            </div>
+            <!--info-->
+            <div class="span3" data-bind="template: { name: 'info-template', data: info}">
             </div>
         </div>
     </div>
@@ -40,10 +43,13 @@
 <script type="text/javascript" src='{% static 'bootstrap/js/bootstrap.min.js' %}'></script>
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
+{% include 'widgets/info.html' %}
 <script type="text/javascript">
     {%  block script %}
         url = "{% url 'fs' %}";
-        config_url = "{% url 'config' %}"
+        config_url = "{% url 'config' %}";
+        control_url = "{% url 'control' %}";
+        info_url = "{% url 'info' %}";
         {% include 'js/main.js' %}
     {% endblock %}
 </script>

@@ -1,0 +1,66 @@
+<script type="text/html" id="info-template">
+    <div class="row-fluid" data-bind="if: $data">
+        <div class="row-fluid">
+            <div class="well" data-bind="with: server">
+                <h3>Сервис записи</h3>
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <td>Статус</td>
+                            <td>PID</td>
+                            <td>Uptime</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-bind="text: status"></td>
+                            <td data-bind="text: pid"></td>
+                            <td data-bind="text: uptime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-group">
+                    <button class="btn" data-bind="text: status === 'RUNNING'? 'Остановить': 'Запустить',
+                        attr: {class: status === 'RUNNING'? 'btn btn-danger': 'btn btn-success'},
+                        click: $root.server_control"></button>
+                    <button class="btn btn-primary, click: $root.server_control_restart">Перезагрузить</button>
+                </div>
+            </div>
+            <div class="well">
+                <h3>Свободное место</h3>
+                <div class="progress">
+                    <div class="bar" data-bind="style: {width: 100 - drive.procent + '%'}"></div>
+                </div>
+                <table class="table" data-bind="with: drive" >
+                    <thead>
+                        <tr>
+                            <td>Устройство</td>
+                            <td>Занято</td>
+                            <td>Свободно</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-bind="text: dev"></td>
+                            <td data-bind="text: usage"></td>
+                            <td data-bind="text: available"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="well">
+                <h3>Общее</h3>
+                <table class="table" >
+                    <tbody>
+                        <tr data-bind="with: uptime">
+                            <td data-bind="text: time"></td>
+                            <td data-bind="text: one"></td>
+                            <td data-bind="text: five"></td>
+                            <td data-bind="text: fifteen"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>

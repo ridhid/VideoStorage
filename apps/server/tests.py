@@ -7,6 +7,9 @@ from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 from apps.server.models import Config
+from apps.server.models import DfCommand
+from apps.server.models import Uptime
+from apps.server.models import Status
 
 
 class TestConfigCreater(object):
@@ -58,6 +61,25 @@ class TestConfigModel(TestCase):
         self.assertEqual(out, self.std_config)
 
 
+class TestCommand(TestCase):
+
+    client = Client()
+
+    def test_df(self):
+        print DfCommand().value
+
+    def test_uptime(self):
+        print Uptime().value
+
+    def test_status(self):
+        print Status().value
+
+    def test_info_view(self):
+        url = reverse('info')
+        response = self.client.get(url)
+        print response.content
+
+
 class TestConfigView(TestCase):
 
     client = Client()
@@ -69,5 +91,15 @@ class TestConfigView(TestCase):
         url = reverse('config')
         response = self.client.get(url)
         expected_data = dumps(TestConfigModel.std_config)
-        print response.content, expected_data
         self.assertJSONEqual(response.content, expected_data)
+        print response.content, expected_data
+
+
+class TestControlView(TestCase):
+
+    client = Client()
+
+    def test_control_start(self):
+        url = reverse('control')
+        response = self.client.get(url, {'action': 'start'})
+        print response.content

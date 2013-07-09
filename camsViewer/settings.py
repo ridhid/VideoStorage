@@ -1,6 +1,12 @@
+#coding: utf-8
 # Django settings for camsViewer project.
 
 import os
+import sys
+
+#решает проблемы с выводом латиницы
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -179,6 +185,7 @@ VIDEO_ROOT = '/home/user/camera'
 VIDEO_URL_PREFIX = '/media/'
 # VIDEO_URL_PREFIX = '/file?file='
 
+
 # active directory authentication module
 AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
 #AD_LDAP_PORT=389
@@ -191,17 +198,19 @@ AD_SEARCH_DN = 'dc=orenmfc,dc=ru'
 AD_NT4_DOMAIN = 'ORENMFC.RU'
 AD_SEARCH_FIELDS = ['mail','givenName','sn','sAMAccountName','memberOf']
 AD_MEMBERSHIP_ADMIN = ['Domain Admins', 'Administrators', 'Enterprise Admins']   # this ad group gets superuser status in django
-AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Call_Center', 'Site']    # only members of this group can access
+AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Video']    # only members of this group can access
 AD_CERT_FILE = '%s/cerificate.pem' % os.getcwd() # this is the certificate of the Certificate Authority issuing your DCs certificate
 AD_DEBUG=True
 AD_DEBUG_FILE='%s/ldap.debug' % os.getcwd()
 
-LOGIN_REDIRECT_URL = '/'
-
 AUTHENTICATION_BACKENDS = (
     'camsViewer.ad_backend.ActiveDirectoryAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
+
+
+LOGIN_REDIRECT_URL = '/'
+
 
 if DEBUG:
     # CAMS_SERVER_SETTINGS_FILE = 'config.test'

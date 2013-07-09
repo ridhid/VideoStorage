@@ -1,0 +1,30 @@
+<div id="setting_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Редактор настроек</h3>
+  </div>
+  <div class="modal-body">
+      <table class="table">
+          <thead>
+            <tr>
+                <td>
+                    Название
+                </td>
+                <td>
+                    Значение
+                </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td data-bind="value: editor_header"></td>
+                <td data-bind="value: editor_value"></td>
+            </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Закрыть</a>
+    <a href="#" class="btn btn-primary">Сохранить</a>
+  </div>
+</div>
