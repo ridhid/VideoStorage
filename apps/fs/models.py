@@ -7,6 +7,16 @@ from os.path import isdir
 from camsViewer import settings
 
 
+class InitMixin(object):
+    """useful for filling attribute from the kwargs
+
+    """
+    def __init__(self, *args, **kwargs):
+        for attr, value in kwargs.items():
+            if hasattr(self, attr):
+                setattr(self, attr, value)
+
+
 class Link(object):
     name = None
     url = None
@@ -39,8 +49,7 @@ class Link(object):
             and self.url == other.url
 
 
-#todo суперкласс, реализующий заполнение аттрибутов из *args конструктора
-class FsModel(object):
+class FsModel(InitMixin):
     """simple file browser
 
     search files with math in extension
@@ -51,7 +60,8 @@ class FsModel(object):
     url_prefix = settings.VIDEO_URL_PREFIX
     cwd = None
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(FsModel, self).__init__(*args, **kwargs)
         self.cwd = self.root
         self._prepare_patterns()
 

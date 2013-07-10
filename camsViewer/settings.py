@@ -180,11 +180,6 @@ LOGGING = {
     }
 }
 
-VIDEO_ROOT = '/home/user/camera'
-# VIDEO_ROOT = '/home/ridhid/'
-VIDEO_URL_PREFIX = '/media/'
-# VIDEO_URL_PREFIX = '/file?file='
-
 
 # active directory authentication module
 AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
@@ -213,6 +208,11 @@ LOGIN_REDIRECT_URL = '/'
 
 
 if DEBUG:
-    # CAMS_SERVER_SETTINGS_FILE = 'config.test'
-    CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
+    CAMS_SERVER_SETTINGS_FILE = 'config.test'
+    # CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
 # CAMS_SERVER_SETTINGS_FILE = os.path.join(PROJECT_ROOT, 'config.cfg')
+
+# VIDEO_ROOT = '/home/user/camera'
+VIDEO_ROOT = '/home/ridhid/'
+VIDEO_URL_PREFIX = '/media/'
+# VIDEO_URL_PREFIX = '/file?file='

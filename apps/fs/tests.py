@@ -13,6 +13,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from apps.fs.models import FsUrlModel
+from apps.fs.models import InitMixin
 
 
 class FolderPoint(object):
@@ -102,6 +103,28 @@ class ModelsTest(TestCase):
         self.fs = FsUrlModel()
         self.graph = FolderPoint(self.fs.root, depth=4)
 
+    def test_init_mixin(self):
+        def test(kwargs):
+            instance = TestClass(**kwargs)
+            self.assertDictEqual(origin, instance.to_dict())
+
+        class TestClass(InitMixin):
+            simpleAttr = None
+            complicityAttr = None
+
+            def to_dict(self):
+                return dict(simpleAttr=self.simpleAttr,
+                            complicityAttr=self.complicityAttr)
+
+        origin = dict(simpleAttr='Простой', complicityAttr='Сложный')
+
+        kwargs = dict(simpleAttr='Простой', complicityAttr='Сложный')
+        test(kwargs)
+
+        kwargs.update({'extra': 'extra'})
+        test(kwargs)
+
+
     @repeat
     def test_moving(self):
         folder = self.graph.deep()
@@ -167,7 +190,6 @@ class ViewFSCase(TestCase):
             dict(format='json', path="Dropbox/job"),
             dict(format='json', path="/Dropbox/job"),
             dict(format='json', path="/Dropbox", page=1),
-            # dict(format='json', path="", page=2),
         )
         url = reverse('fs')
         for arg_set in args:

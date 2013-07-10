@@ -10,6 +10,10 @@ function Visible(video, config) {
     this.config = config ? true : false;
 }
 
+function Items() {
+
+}
+
 function AppViewModel(){
     var self = this;
     this.dir = ko.observable();
