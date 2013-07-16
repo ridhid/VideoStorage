@@ -26,8 +26,11 @@ class ConfigView(View):
 class InfoView(View):
 
     def get_context(self):
-        return dict(drive=DfCommand().value,
-            uptime=Uptime().value, server=Status().value)
+        drive = DfCommand()
+        uptime = Uptime()
+        status = Status()
+        return dict(drive=drive(),
+            uptime=uptime, server=status)
 
     def get(self, request):
         context = self.get_context()
@@ -52,10 +55,12 @@ class ServerControl(View):
             self._status = 'bad'
 
     def start(self):
-        self.status = StartVideo().value
+        start = StartVideo()
+        self.status = start()
 
     def stop(self):
-        self.status = StopVideo().value
+        stop = StopVideo()
+        self.status = stop
 
     def restart(self):
         self.stop()

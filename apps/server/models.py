@@ -46,8 +46,7 @@ class Command(object):
         def __repr__(self):
             return "Ошибка в выполнении команды"
 
-    @property
-    def value(self):
+    def __call__(self):
         status, output = commands.getstatusoutput(self.cmd)
         return self.process(output)
 

@@ -66,13 +66,16 @@ class TestCommand(TestCase):
     client = Client()
 
     def test_df(self):
-        print DfCommand().value
+        cmd = DfCommand()
+        print cmd()
 
     def test_uptime(self):
-        print Uptime().value
+        cmd = Uptime()
+        print cmd()
 
     def test_status(self):
-        print Status().value
+        cmd = Status()
+        print cmd()
 
     def test_info_view(self):
         url = reverse('info')
