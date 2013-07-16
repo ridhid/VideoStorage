@@ -1,0 +1,16 @@
+<div id="editor" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header" data-bind="with: edit">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 data-bind="text: section.section"></h3>
+    </div>
+    <div class="modal-body" data-bind="with: edit" data-bind="if: edit">
+        <div class="form-inline">
+            <input type="text" class="inline" data-bind="value: header" placeholder="Название"/>
+            <input type="text" class="inline-larg" data-bind="value: value" placeholder="Значение"/>
+        </div>
+    </div>
+    <div class="modal-footer" data-bind="with: edit" data-bind="if: edit">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button class="btn btn-primary" data-bind="click: save">Сохранить</button>
+    </div>
+</div>

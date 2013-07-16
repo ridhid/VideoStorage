@@ -12,15 +12,70 @@ from models import Uptime
 from models import Status
 
 
-class ConfigView(View):
-    template_name = "objects/config.html"
-    model = Config
+class ActionMix(object):
+    """ get able run custom action
 
-    def get(self, request):
-        model = self.model()
-        to_json = dumps(model.to_dict())
+    action describe in self.actions as ['action_name' : (arg_name1,..., arg_nameN)]
+    and action must exist as function at same name in self.__dict__
+    :action-sign - signature of action_type variable in request.GET dictionary
+    :actions - describe args and name of action
+    """
+
+    class MissingArg(Exception):
+        def __init__(self, arg):
+            self.arg = arg
+        def __repr__(self):
+            return u"missing %s argument in GET" % self.arg
+
+    action_sign = 'action'
+    actions = dict()
+
+    def parse_args(self, request, attrs):
+        try:
+            return [lambda attr: getattr(request.GET, attr) for attr in attrs]
+        except KeyError as error:
+            raise self.MissingArg(error.message)
+
+    def perform_action(self, request):
+        action = request.GET.get(self.action_sign, None)
+        if action and action in self.actions:
+            args = self.parse_args(request, self.actions[action])
+            action_func = getattr(self, action)
+            return action_func(*args)
+
+
+class ConfigView(ActionMix, View):
+
+    @property
+    def model(self):
+        if not hasattr(self, '_model'):
+            self._model_instance = self.model_class()
+        return self._model_instance
+
+    def edit(self, section, option, value):
+        self.model.edit(section, option, value)
+        return HttpResponse('ok')
+
+    def delete(self, section, option):
+        self.model.delete(section, option)
+        return HttpResponse('ok')
+
+    def static(self):
+        to_json = dumps(self.model.to_dict())
         return HttpResponse(to_json,
                             content_type='application/json')
+
+    actions = {
+        'edit': ('section', 'option', 'value'),
+        'delete': ('section', 'option', ),
+        'static': ()
+    }
+
+    template_name = "objects/config.html"
+    model_class = Config
+
+    def get(self, request):
+        return self.perform_action(request)
 
 
 class InfoView(View):

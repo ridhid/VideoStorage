@@ -10,6 +10,10 @@
     <style>
         {% block style %}
         {% endblock %}
+
+        .inline  {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -34,7 +38,9 @@
             </div>
         </div>
     </div>
-    {% include 'widgets/config.html' %}
+    <div class="container-fluid" data-bind="if: visible().config">
+        {% include 'widgets/config.html' %}
+    </div>
     {% endblock %}
 </body>
 
@@ -44,6 +50,7 @@
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
 {% include 'widgets/info.html' %}
+{% include 'widgets/editor.html' %}
 <script type="text/javascript">
     {%  block script %}
         url = "{% url 'fs' %}";
