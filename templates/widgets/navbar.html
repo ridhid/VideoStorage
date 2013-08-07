@@ -7,6 +7,7 @@
                     Сейчас
                 </a>
             </li>
+            {% if user.is_authenticated %}
             <li>
                 <a href="#" data-bind="click: navigation.record">
                     Записи
@@ -17,10 +18,15 @@
                     Настройки
                 </a>
             </li>
+            {% endif %}
         </ul>
         <div class="container">
             <div class="pull-right">
-                <li><a class="btn btn-success" href={% url "logout" %}><i class="icon-off"></i> Logout</a></li>
+            {% if user.is_authenticated %}
+                    <li><a class="btn btn-success" href={% url "logout" %}><i class="icon-off"></i>Выйти</a></li>
+            {% else %}
+                    <li><a class="btn btn-success" href={% url "login"%}><i class="icon-off"></i>Войти</a></li>
+            {% endif %}
             </div>
         </div>
     </div>

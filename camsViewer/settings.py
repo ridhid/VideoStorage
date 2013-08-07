@@ -115,6 +115,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+)
+
 ROOT_URLCONF = 'camsViewer.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -181,27 +189,27 @@ LOGGING = {
 }
 
 
-# active directory authentication module
-AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
-#AD_LDAP_PORT=389
-#AD_LDAP_URL='ldap://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
-# If using SSL use these:
-AD_LDAP_PORT=636
-AD_LDAP_URL='ldaps://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
-
-AD_SEARCH_DN = 'dc=orenmfc,dc=ru'
-AD_NT4_DOMAIN = 'ORENMFC.RU'
-AD_SEARCH_FIELDS = ['mail','givenName','sn','sAMAccountName','memberOf']
-AD_MEMBERSHIP_ADMIN = ['Domain Admins', 'Administrators', 'Enterprise Admins']   # this ad group gets superuser status in django
-AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Video']    # only members of this group can access
-AD_CERT_FILE = '%s/cerificate.pem' % os.getcwd() # this is the certificate of the Certificate Authority issuing your DCs certificate
-AD_DEBUG=False
-AD_DEBUG_FILE='%s/ldap.debug' % os.getcwd()
-
-AUTHENTICATION_BACKENDS = (
-    'camsViewer.ad_backend.ActiveDirectoryAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+# # active directory authentication module
+# AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
+# #AD_LDAP_PORT=389
+# #AD_LDAP_URL='ldap://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
+# # If using SSL use these:
+# AD_LDAP_PORT=636
+# AD_LDAP_URL='ldaps://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
+#
+# AD_SEARCH_DN = 'dc=orenmfc,dc=ru'
+# AD_NT4_DOMAIN = 'ORENMFC.RU'
+# AD_SEARCH_FIELDS = ['mail','givenName','sn','sAMAccountName','memberOf']
+# AD_MEMBERSHIP_ADMIN = ['Domain Admins', 'Administrators', 'Enterprise Admins']   # this ad group gets superuser status in django
+# AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Video']    # only members of this group can access
+# AD_CERT_FILE = '%s/cerificate.pem' % os.getcwd() # this is the certificate of the Certificate Authority issuing your DCs certificate
+# AD_DEBUG=False
+# AD_DEBUG_FILE='%s/ldap.debug' % os.getcwd()
+#
+# AUTHENTICATION_BACKENDS = (
+#     'camsViewer.ad_backend.ActiveDirectoryAuthenticationBackend',
+#     'django.contrib.auth.backends.ModelBackend'
+# )
 
 
 LOGIN_REDIRECT_URL = '/'

@@ -11,5 +11,5 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
 
-class MainPage(LoginRequiredMixin, TemplateView):
+class MainPage(TemplateView):
     template_name = 'base.html'
