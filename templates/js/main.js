@@ -65,7 +65,7 @@ function Navigation(self) {
     self.default_visible = 'video';
     self.visible = ko.observable(self.default_visible);
     self.location_map = {
-        record: 'record',
+        record: 'fs/root/1',
         config: 'settings/config',
         video: 'video'
     };

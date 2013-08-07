@@ -85,7 +85,7 @@ class InfoView(View):
         uptime = Uptime()
         status = Status()
         return dict(drive=drive(),
-            uptime=uptime, server=status)
+            uptime=uptime(), server=status())
 
     def get(self, request):
         context = self.get_context()
