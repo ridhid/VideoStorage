@@ -1,25 +1,26 @@
-<div class="container-fluid" data-bind="if: visible().config">
-    <div class="row" data-bind="foreach: config">
-        <h3 data-bind="text: name"></h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <td>
-                        Название
-                    </td>
-                    <td>
-                        Значение
-                    </td>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: items">
-                <tr>
-                    <td data-bind="text: header"></td>
-                    <td>
-                        <button class="btn btn-primary" data-bind="text: value">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div data-bind="foreach: cfg">
+    <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+            <div>
+                <h3 class="inline" data-bind="text: section"></h3>
+                <button data-bind="click: add_new"><i class="icon-plus"></i></button>
+            </div>
+            <table class="table table-striped">
+                <tbody data-bind="foreach: rows">
+                    <tr>
+                        <td width="10%">
+                            <button class="inline btn" data-bind="click: remove"><i class="icon-remove"></i></button>
+                            <button class="inline btn" data-bind="click: edit"><i class="icon-pencil"></i></button>
+                        </td>
+                        <td width="25%"data-bind="text: header"></td>
+                        <td width="65%">
+                            <p class="inline" data-bind="text: value"></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="span2"></div>
     </div>
 </div>

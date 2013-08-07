@@ -5,7 +5,7 @@ import commands
 import ConfigParser
 from camsViewer import settings
 
-#todo модель с конфигами сервера
+
 class Config(object):
 
     configfile = settings.CAMS_SERVER_SETTINGS_FILE
@@ -24,6 +24,20 @@ class Config(object):
     def __init__(self, configfile=None):
         configfile = configfile or self.configfile
         self.config = configfile
+
+    def save(self):
+        with open(self.configfile, 'w') as cfg_file:
+            self.config.write(cfg_file)
+
+    def delete(self, section, option):
+        if self.config.has_option(section, option):
+            self.config.remove_option(section, option)
+            self.save()
+
+    def edit(self, section, option, value):
+        if self.config.has_section(section):
+            self.config.set(section, option, value)
+            self.save()
 
     def to_dict(self):
         config = self.config
@@ -63,21 +77,18 @@ class PatternMix(object):
 
 
 class DfCommand(PatternMix, Command):
-
     cmd = r'df -h'
     pattern = r'(?P<dev>/dev/\w+)\s+(.+?)\s+(?P<usage>.+?)\s+(?P<available>.+?)\s+(?P<procent>.+?)%\s+/'
     output_groups = ('dev', 'usage', 'available', 'procent')
 
 
 class Uptime(PatternMix, Command):
-
     cmd = "uptime"
     pattern = r'\s*(?P<time>..:..:..)\s+.*load average:\s+(?P<one>.*),\s+(?P<five>.*)\s(?P<fifteen>.*)'
     output_groups = ('time', 'one', 'five', 'fifteen')
 
 
 class Status(PatternMix, Command):
-
     cmd = "./scripts/supervisorctl 'status video'"
     pattern = r'.*video.*?(?P<status>\w+).*pid\s+(?P<pid>\d+),.*?uptime.*?(?P<uptime>.*)'
     output_groups = ('status', 'pid', 'uptime')

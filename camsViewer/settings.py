@@ -206,12 +206,10 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 
 
-if DEBUG:
-    CAMS_SERVER_SETTINGS_FILE = 'config.test'
-    # CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
-# CAMS_SERVER_SETTINGS_FILE = os.path.join(PROJECT_ROOT, 'config.cfg')
+# CAMS_SERVER_SETTINGS_FILE = 'config.test'
+CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
 
-# VIDEO_ROOT = '/home/user/camera'
-VIDEO_ROOT = '/home/ridhid/'
+VIDEO_ROOT = '/home/user/camera'
+# VIDEO_ROOT = '/home/ridhid/'
 VIDEO_URL_PREFIX = '/media/'
 # VIDEO_URL_PREFIX = '/file?file='
