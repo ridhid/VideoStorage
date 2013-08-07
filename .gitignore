@@ -1,2 +1,4 @@
 .idea*
-third_party*
+third_party*static/
+static
+third_party
