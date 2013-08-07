@@ -1,2 +1,4 @@
 *.pyc
 third_party
+*.db
+static/
