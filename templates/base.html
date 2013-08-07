@@ -10,15 +10,19 @@
     <style>
         {% block style %}
         {% endblock %}
+
+        .inline  {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
+    {% include "widgets/navbar.html" %}
     <div class="page-header">
-        {% include "widgets/navbar.html" %}
         <h1 align="center">Сервер. Видео сервер.</h1>
     </div>
     {% block content %}
-    <div class="container-fluid" data-bind="if: visible().video">
+    <div class="container-fluid" data-bind="if: visible() === 'record' ">
         <div class="row-fluid">
             <!--fs-->
             <div class="span3">
@@ -34,7 +38,12 @@
             </div>
         </div>
     </div>
-    {% include 'widgets/config.html' %}
+    <div class="container-fluid" data-bind="if: visible() === 'config' ">
+        {% include 'widgets/config.html' %}
+    </div>
+    <div class="container-fluid" data-bind="if: visible() === 'video' ">
+        {% include 'cameras/all.html' %}
+    </div>
     {% endblock %}
 </body>
 
@@ -44,12 +53,15 @@
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
 {% include 'widgets/info.html' %}
+{% include 'widgets/editor.html' %}
 <script type="text/javascript">
     {%  block script %}
         url = "{% url 'fs' %}";
         config_url = "{% url 'config' %}";
         control_url = "{% url 'control' %}";
+        video_url = "{% url 'cameras' %}";
         info_url = "{% url 'info' %}";
+        {% include 'js/cams.js' %}
         {% include 'js/main.js' %}
     {% endblock %}
 </script>

@@ -1,19 +1,19 @@
 <div class="navbar navbar-inverse nav">
     <div class="navbar-inner">
-        <a class="brand" href="#">Панель управления</a>
+        <a class="brand" href="/">Панель управления</a>
         <ul class="nav">
             <li class="active">
-                <a href="#">
-                    Основное
+                <a href="#" data-bind="click: navigation.video">
+                    Сейчас
                 </a>
             </li>
             <li>
-                <a href="#" data-bind="click: to_video">
-                    Видео
+                <a href="#" data-bind="click: navigation.record">
+                    Записи
                 </a>
             </li>
             <li>
-                <a href="#" data-bind="click: to_config">
+                <a href="#" data-bind="click: navigation.config">
                     Настройки
                 </a>
             </li>

@@ -1,2 +1,5 @@
-idea
-.idea
+*.pyc
+third_party
+*.db
+static
+.idea*

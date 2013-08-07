@@ -73,7 +73,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -84,8 +84,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'static'),
-    os.path.join(PROJECT_ROOT, 'third_party', 'components')
+    os.path.join(PROJECT_ROOT, 'third_party', 'components'),
 )
 
 # List of finder classes that know how to find static files in
@@ -142,7 +141,8 @@ INSTALLED_APPS = (
     #########
     'apps.fs',
     'apps.main',
-    'apps.server'
+    'apps.server',
+    'apps.cameras',
 )
 
 BOWER_INSTALLED_APPS = (
@@ -180,39 +180,37 @@ LOGGING = {
     }
 }
 
-
-# active directory authentication module
-AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
-#AD_LDAP_PORT=389
-#AD_LDAP_URL='ldap://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
-# If using SSL use these:
-AD_LDAP_PORT=636
-AD_LDAP_URL='ldaps://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
-
-AD_SEARCH_DN = 'dc=orenmfc,dc=ru'
-AD_NT4_DOMAIN = 'ORENMFC.RU'
-AD_SEARCH_FIELDS = ['mail','givenName','sn','sAMAccountName','memberOf']
-AD_MEMBERSHIP_ADMIN = ['Domain Admins', 'Administrators', 'Enterprise Admins']   # this ad group gets superuser status in django
-AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Video']    # only members of this group can access
-AD_CERT_FILE = '%s/cerificate.pem' % os.getcwd() # this is the certificate of the Certificate Authority issuing your DCs certificate
-AD_DEBUG=True
-AD_DEBUG_FILE='%s/ldap.debug' % os.getcwd()
-
-AUTHENTICATION_BACKENDS = (
-    'camsViewer.ad_backend.ActiveDirectoryAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+#
+# # active directory authentication module
+# AD_DNS_NAME = 'orenmfc.ru' # FQDN of your DC If using non-SSL use these
+# #AD_LDAP_PORT=389
+# #AD_LDAP_URL='ldap://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
+# # If using SSL use these:
+# AD_LDAP_PORT=636
+# AD_LDAP_URL='ldaps://%s:%s' % (AD_DNS_NAME,AD_LDAP_PORT)
+#
+# AD_SEARCH_DN = 'dc=orenmfc,dc=ru'
+# AD_NT4_DOMAIN = 'ORENMFC.RU'
+# AD_SEARCH_FIELDS = ['mail','givenName','sn','sAMAccountName','memberOf']
+# AD_MEMBERSHIP_ADMIN = ['Domain Admins', 'Administrators', 'Enterprise Admins']   # this ad group gets superuser status in django
+# AD_MEMBERSHIP_REQ = AD_MEMBERSHIP_ADMIN + ['Video']    # only members of this group can access
+# AD_CERT_FILE = '%s/cerificate.pem' % os.getcwd() # this is the certificate of the Certificate Authority issuing your DCs certificate
+# AD_DEBUG=True
+# AD_DEBUG_FILE='%s/ldap.debug' % os.getcwd()
+#
+# AUTHENTICATION_BACKENDS = (
+#     'camsViewer.ad_backend.ActiveDirectoryAuthenticationBackend',
+#     'django.contrib.auth.backends.ModelBackend'
+# )
 
 
 LOGIN_REDIRECT_URL = '/'
 
 
-if DEBUG:
-    CAMS_SERVER_SETTINGS_FILE = 'config.test'
-    # CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
-# CAMS_SERVER_SETTINGS_FILE = os.path.join(PROJECT_ROOT, 'config.cfg')
+# CAMS_SERVER_SETTINGS_FILE = 'config.test'
+CAMS_SERVER_SETTINGS_FILE = '/home/user/video_server/config.cfg'
 
-# VIDEO_ROOT = '/home/user/camera'
-VIDEO_ROOT = '/home/ridhid/'
+VIDEO_ROOT = '/home/user/camera'
+# VIDEO_ROOT = '/home/ridhid/'
 VIDEO_URL_PREFIX = '/media/'
 # VIDEO_URL_PREFIX = '/file?file='

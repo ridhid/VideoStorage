@@ -1,7 +1,7 @@
 #coding: utf-8
-from django.utils.simplejson import dumps
+from json import dumps
 from apps.cameras.models import Room
-from apps.record.Mixed import JsonHtmlMixedView
+from mixin import JsonHtmlMixedView
 
 class Cameras(JsonHtmlMixedView):
     """"""

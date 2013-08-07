@@ -1,13 +1,13 @@
 <!--Заголовок. Обратный путь заголовок держит. -->
 <ul class="breadcrumb" data-bind="foreach: back_path">
     <li>
-        <a href="#" data-bind="text: $data, click: $root.back_to"></a>
+        <a href="#" data-bind="text: $data, click: $root.fs.back_to"></a>
         <span class="divider">/</span>
     </li>
 </ul>
 <!--Тело с папками-->
 <ul class="nav nav-list" data-bind="foreach: dir">
     <li>
-        <a href="#" data-bind="text: name, click: $root.click, attr: {href: url || '#'}"></a>
+        <a href="#" data-bind="text: name, click: $root.fs.click, attr: {href: url || '#'}"></a>
     </li>
 </ul>

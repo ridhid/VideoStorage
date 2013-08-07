@@ -8,10 +8,10 @@ from django.contrib.auth.views import logout
 admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'widgets/login.html'}),
-    # url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'accounts/logout/$', logout, {'next_page': '/'}, name="logout"),
     url(r'^server/', include('apps.server.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^fs/', include('apps.fs.urls')),
     url(r'^$', MainPage.as_view(), name="main"),
+    url(r'^cameras', include('apps.cameras.urls')),
 )
