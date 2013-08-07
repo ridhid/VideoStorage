@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block "style" %}
+    <style>
+        table {
+            color: #800000;
+            font-size: 16px;
+        }
+    </style>
+{% endblock %}
+
+{% block style %}
+    {{ block.super }}​
+{% endblock %}
+
+{% block base_content %}
+    <table data-bind="foreach: rooms" align="center" cellpadding="10" border=8>
+        <tr>
+            <td align="center" align="center" cellpadding="10" border="0" >​
+                <table >
+                    <tr>
+                        <td align="center" colspan="10" data-bind="text: name"></td>
+                    </tr>
+                    <tr data-bind="foreach: cams">
+                        <td align="center">
+                            <br>
+                            <img class="video" data-bind="attr: {src: $data}" width="320" height="240"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block "js" %}
+    {{ block.super }}
+    {% include "cameras/includes/js.html" %}
+    <script type="text/javascript">
+        function AppViewsModel() {
+            self = this;
+            this.rooms = ko.observable();
+        }
+        function Refresher() {
+            self = this;
+            this.refresh = function() {
+                $('.video').each(function() {
+                    var self = $(this);
+                    var old = self.attr('src');
+                    self.removeAttr('src');
+                    self.attr('src', old)
+                });
+            };
+            this.start = function(interval) {
+                self.timeId = setInterval(this.refresh, interval)
+            };
+            this.stop = function() {
+                clearTimeout(self.timeId);
+            };
+            return this;
+        }
+        $(document).ready(function() {
+            $.getJSON("{% url cameras %}", {format: 'json'}, function(data){
+                Model = new AppViewsModel();
+                Model.rooms(data);
+                ko.applyBindings(Model);
+                Video = Refresher();
+                Video.start(1000);
+            })
+        });
+
+    </script>
+{% endblock %}
