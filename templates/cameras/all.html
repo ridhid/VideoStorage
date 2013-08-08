@@ -1,4 +1,4 @@
-<table data-bind="foreach: rooms" align="center" cellpadding="10" border=8>
+<!-- <table data-bind="foreach: rooms" align="center" cellpadding="10" border=8>
     <tr>
         <td align="center" align="center" cellpadding="10" border="0" >​
             <table >
@@ -14,4 +14,40 @@
             </table>
         </td>
     </tr>
-</table>
+</table> -->
+<div id="modal" class="modal hide">
+    <div class="modal-header">
+        <h2></h2>
+    </div>
+    <div class="modal-body-big">
+        <p><img class="video" data-bind="attr: {src: $data}" width="720" height="240"/></p>
+    </div>
+</div>
+
+<div class="row">
+    <div data-bind="foreach: rooms" align="center">
+        <div class="span8 offset1">
+            <table >
+                <tr>
+                    <div class="name">
+                        <td align="center" colspan="10" data-bind="text: name"></td>
+                    </div>
+                </tr>
+                <tr data-bind="foreach: cams">
+                    <td align="center">
+                        <hr>
+                        <a class="gallery" rel="group"><img class="video" data-bind="attr: {src: $data}" width="340" height="240"/></a>
+                        <br>
+                        <!-- <a href="#modal" role="button-inv" class="btn" data-toggle="modal">Развернуть</a> -->
+                        <hr>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<a href="#modal" role="button" class="btn" data-toggle="modal">Click Me</a>
+
+

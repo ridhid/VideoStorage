@@ -14,7 +14,13 @@
         .inline  {
             display: inline-block;
         }
+
+        .name td {
+            font-size: 10%; 
+        }
     </style>
+
+    
 </head>
 <body>
     {% include "widgets/navbar.html" %}
@@ -64,6 +70,7 @@
         {% include 'js/cams.js' %}
         {% include 'js/main.js' %}
     {% endblock %}
+
 </script>
 {% block js %}
 {% endblock %}
