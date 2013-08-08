@@ -8,6 +8,14 @@
 
 function Cams(self) {
     self.rooms = ko.observable();
+    self.zoom = ko.observable("");
+    this.start_zoom = function(cam) {
+        self.zoom(cam);
+        $('.modal').show();
+    };
+    this.stop_zoom = function(cam) {
+        self.zoom("");
+    };
 }
 
 function Refresher() {

@@ -1,26 +1,10 @@
-<!-- <table data-bind="foreach: rooms" align="center" cellpadding="10" border=8>
-    <tr>
-        <td align="center" align="center" cellpadding="10" border="0" >​
-            <table >
-                <tr>
-                    <td align="center" colspan="10" data-bind="text: name"></td>
-                </tr>
-                <tr data-bind="foreach: cams">
-                    <td align="center">
-                        <br>
-                        <img class="video" data-bind="attr: {src: $data}" width="320" height="240"/>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table> -->
 <div id="modal" class="modal hide">
     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h2></h2>
     </div>
     <div class="modal-body-big">
-        <p><img class="video" data-bind="attr: {src: $data}" width="720" height="240"/></p>
+        <p><img class="video zoom" data-bind="attr: {src: zoom}" width="720" height="240"/></p>
     </div>
 </div>
 
@@ -38,7 +22,8 @@
                         <hr>
                         <a class="gallery" rel="group"><img class="video" data-bind="attr: {src: $data}" width="340" height="240"/></a>
                         <br>
-                        <!-- <a href="#modal" role="button-inv" class="btn" data-toggle="modal">Развернуть</a> -->
+                        <a href="#modal" role="button-inv" class="btn btn-inverse" data-toggle="modal"
+                           data-bind="click: $root.cams.start_zoom">Развернуть</a>
                         <hr>
                     </td>
                 </tr>
@@ -46,8 +31,5 @@
         </div>
     </div>
 </div>
-
-
-<a href="#modal" role="button" class="btn" data-toggle="modal">Click Me</a>
 
 
