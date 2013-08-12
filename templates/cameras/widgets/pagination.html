@@ -1,0 +1,12 @@
+<div class="row-fluid">
+    <div data-bind="if: $root.cams.has_prev_page()">
+        <button class="btn pull-left inline" data-bind="click: $root.cams.prev_page">
+            <i class="glyphicon glyphicon-arrow-left"></i>
+        </button>
+    </div>
+    <div data-bind="if: $root.cams.has_next_page()">
+        <button class="btn pull-right inline" data-bind="click: $root.cams.next_page">
+            <i class="glyphicon glyphicon-arrow-right"></i>
+        </button>
+    </div>
+</div>

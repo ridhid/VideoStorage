@@ -261,4 +261,6 @@ ko.observableArray.fn.pushAll = function(valuesToPush) {
 $(document).ready(function() {
     Model = new AppViewModel();
     ko.applyBindings(Model);
+
+//    setInterval(function() {Model.cams.next_page()}, 100)
 });

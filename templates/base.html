@@ -3,9 +3,10 @@
 <head>
     <title></title>
     {% load static %}
-    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
 
     {% block link %}
+        <link href="{% static 'bootstrap/css/bootstrap.css'%}" rel="stylesheet" media="screen">
+        <link href="{% static 'bootstrap/css/bootstrap-glyphicons.css'%}" rel="stylesheet" media="screen">
     {% endblock %}
     <style>
         {% block style %}
@@ -16,11 +17,22 @@
         }
 
         .name td {
-            font-size: 10%; 
+            font-size: 10%;
         }
         .zoom {
-            height: 480px;
-            width: 640px;
+            height: 640px;
+            width: 900px;
+        }
+        .modal {
+            width: 900px;
+            left: 40%;
+            top:3%;
+        }
+        .modal-backdrop {
+            opacity: 1;
+        }
+        .not_margin_left {
+            margin-left: 0px;
         }
     </style>
 
@@ -30,6 +42,7 @@
     {% include "widgets/navbar.html" %}
     <div class="page-header">
         <h1 align="center">Сервер. Видео сервер.</h1>
+        {% include 'cameras/widgets/pagination.html' %}
     </div>
     {% block content %}
     <div class="container-fluid" data-bind="if: visible() === 'record' ">
@@ -58,7 +71,7 @@
 </body>
 
 <script type="text/javascript" src='{% static 'jquery/jquery.min.js' %}'></script>
-<script type="text/javascript" src='{% static 'knockout/build/output/knockout-latest.js' %}'></script>
+<script type="text/javascript" src='{% static 'knockout/knockout.min.js' %}'></script>
 <script type="text/javascript" src='{% static 'bootstrap/js/bootstrap.min.js' %}'></script>
 <script type="text/javascript" src='{% static 'sammy/lib/min/sammy-latest.min.js' %}'></script>
 
