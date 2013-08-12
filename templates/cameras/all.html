@@ -8,9 +8,14 @@
     </div>
 </div>
 
-<div class="row-fluid" data-bind="foreach: visible_cams">
-    <div class="span6 well" data-bind="style: { 'margin-left': row_begin ? '0px' : ' ' }">
-        <label data-bind="text: name"></label>
-        <img class="video" data-bind="attr: {src: src}, click: $root.cams.start_zoom"/>
+<div class="row-fluid">
+    {% include 'cameras/widgets/pagination.html' %}
+</div>
+<div class="row-fluid">
+    <div class="row-fluid" data-bind="foreach: visible_cams">
+        <div class="span6 well" data-bind="style: { 'margin-left': row_begin ? '0px' : ' ' }">
+            <label data-bind="text: name"></label>
+            <img class="video" data-bind="attr: {src: src}, click: $root.cams.start_zoom"/>
+        </div>
     </div>
 </div>

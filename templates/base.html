@@ -34,15 +34,16 @@
         .not_margin_left {
             margin-left: 0px;
         }
+        .center {
+            left: 46.5%;
+        }
     </style>
-
-    
 </head>
+
 <body>
     {% include "widgets/navbar.html" %}
     <div class="page-header">
         <h1 align="center">Сервер. Видео сервер.</h1>
-        {% include 'cameras/widgets/pagination.html' %}
     </div>
     {% block content %}
     <div class="container-fluid" data-bind="if: visible() === 'record' ">
