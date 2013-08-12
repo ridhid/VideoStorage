@@ -23,7 +23,7 @@
                     <button class="btn" data-bind="text: status === 'RUNNING'? 'Остановить': 'Запустить',
                         attr: {class: status === 'RUNNING'? 'btn btn-danger': 'btn btn-success'},
                         click: $root.server_control"></button>
-                    <button class="btn btn-primary, click: $root.server_control_restart">Перезагрузить</button>
+                    <button class="btn btn-primary" data-bind="click: $root.server_control_restart">Перезагрузить</button>
                 </div>
             </div>
             <div class="well">

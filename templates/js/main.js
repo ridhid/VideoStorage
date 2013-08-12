@@ -103,14 +103,14 @@ function Navigation(self) {
 
 
 function SideBar(self) {
-    this.server_control = function(server) {
+    self.server_control = function(server) {
         var action = server.status === 'RUNNING' ? 'stop': 'start';
         $.get(control_url, {action: action}, function(data) {
             self.ajax.std_error(data);
             self.ajax.indo();
         });
     };
-    this.server_control_restart = function() {
+    self.server_control_restart = function() {
         $.get(control_url, {action: 'restart'});
     };
 }
