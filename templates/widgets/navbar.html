@@ -1,33 +1,27 @@
-<div class="navbar navbar-inverse nav">
-    <div class="navbar-inner">
-        <a class="brand" href="/">Панель управления</a>
-        <ul class="nav">
-            <li class="active">
-                <a href="#" data-bind="click: navigation.video">
-                    Сейчас
-                </a>
-            </li>
-            {% if user.is_authenticated %}
-            <li>
-                <a href="#" data-bind="click: navigation.record">
-                    Записи
-                </a>
-            </li>
-            <li>
-                <a href="#" data-bind="click: navigation.config">
-                    Настройки
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-        <div class="container">
-            <div class="pull-right">
-            {% if user.is_authenticated %}
-                    <li><a class="btn btn-success" href={% url "logout" %}><i class="icon-off"></i>Выйти</a></li>
-            {% else %}
-                    <li><a class="btn btn-success" href={% url "login"%}><i class="icon-off"></i>Войти</a></li>
-            {% endif %}
-            </div>
-        </div>
-    </div>
+<div class="navbar navbar-inverse">
+    <a class="navbar-brand" href="/">Панель управления</a>
+    <ul class="nav navbar-nav">
+        <li class="active">
+            <a href="#" data-bind="click: navigation.video">
+                Сейчас
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+            <a href="#" data-bind="click: navigation.record">
+                Записи
+            </a>
+        </li>
+        <li>
+            <a href="#" data-bind="click: navigation.config">
+                Настройки
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    {% if user.is_authenticated %}
+        <li><a class="btn btn-success btn-default navbar-btn pull-right" href={% url "logout" %}><i class="icon-off"></i>Выйти</a></li>
+    {% else %}
+        <li><a class="btn btn-success btn-default navbar-btn pull-right" href={% url "login"%}><i class="icon-off"></i>Войти</a></li>
+    {% endif %}
 </div>

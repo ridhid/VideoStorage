@@ -11,20 +11,43 @@ function Cam(src, name, row_begin) {
     this.row_begin = row_begin;
 }
 
+function CamsGrid(row, cams) {
+    this.grid = [];
+    this._fill = function(row, cams) {
+        var gs = function(i, row) {return i *row};
+        var ge = function(i, row) {return (i + 1) * row};
+
+        if(typeof(row) === 'string')
+            row = row * 1
+
+        console.log(cams.length - cams.length % row, row, cams.length % row)
+        var block_size = cams.length % row ? (cams.length - cams.length % row) / row +1 : cams.length / row;
+
+        for (var i = 0; i < block_size; i++ ) {
+            var start, end;
+            start = gs(i, row);
+            end = ge(i, row);
+
+            this.grid.push(cams.slice(start, end));
+        }
+    }
+    this._fill(row, cams);
+}
+
 function Cams(self) {
     var local = this;
     self.rooms = ko.observable([]);
     self.zoom = ko.observable("");
-    self.visible_cams = ko.observable([]);
+    self.cams_grid = ko.observable([]);
     self.paginate_by = ko.observable();
     self.row = ko.observable();
     this.page = ko.observable();
     this.start_zoom = function(cam) {
-        self.zoom(cam.src);
-        $('#modal').modal();
+        self.zoom(cam);
+        $('#zoom_modal').modal();
     };
     this.stop_zoom = function(cam) {
-        self.zoom("");
+        self.zoom(false);
     };
     this.next_page = function() {
         local._computed_page(1);
@@ -60,8 +83,10 @@ function Cams(self) {
         if (end >= cams_length || end < 0)
             end = cams_length;
 
-        var visible_cams = local.cams().slice(start, end);
-        self.visible_cams(visible_cams);
+        var cams = local.cams().slice(start, end);
+        var grid = new CamsGrid(self.row(), cams);
+
+        self.cams_grid(grid);
     }, this);
     this.has_next_page = function() {
         var page = local.page();
@@ -102,6 +127,34 @@ function Cams(self) {
         self.row(2);
         this.page(0);
     };
+    this.show_settings = function() {
+        $('#settings_modal').modal('show');
+    }
+    this.get_class = function(cam) {
+        var out;
+        var row = self.row() * 1;
+
+        switch (row) {
+            case 2:
+                out = cam.row_begin ? 'col-lg-5 col-lg-offset-1 well' : 'col-lg-5 well';
+                break;
+            case 3:
+                out = cam.row_begin ? 'col-lg-3 col-lg-offset-1 well' : 'col-lg-3 well';
+                break;
+            case 4:
+                out = cam.row_begin ? 'col-lg-3 well' : 'col-lg-3 well';
+                break;
+            case 5:
+                out = cam.row_begin ? 'col-lg-2 well col-lg-offset-1' : 'col-lg-2 well';
+                break;
+            case 6:
+                out = cam.row_begin ? 'col-lg-2 well' : 'col-lg-2 well';
+                break;
+            default:
+                break;
+        }
+        return out;
+    }
     this._init();
 }
 
@@ -113,6 +166,9 @@ function Refresher() {
             var old = self.attr('src');
             self.removeAttr('src');
             self.attr('src', old)
+            // выравнивание высоты \ иширны
+            var parent_width = self.parent().width();
+            self.width(parent_width);
         });
     };
     this.start = function(interval) {

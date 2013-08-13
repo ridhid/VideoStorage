@@ -1,18 +1,16 @@
-<div class="pagination">
-    <ul>
-        <li>
-            <a class="previous" href="#" data-bind="click: pagination.previous">
-                Предыдущая
-            </a>
-        </li>
-        <li data-bind="if: page">
-            <a data-bind="text: page().current + ' из ' + page().all"></a>
-        </li>
+<ul class="pager">
+    <li>
+        <a class="previous" href="#" data-bind="click: pagination.previous">
+            Предыдущая
+        </a>
+    </li>
+    <li data-bind="if: page">
+        <a data-bind="text: page().current + ' из ' + page().all"></a>
+    </li>
 
-        <li>
-            <a class="next" href="#" data-bind="click: pagination.next">
-                Следующая
-            </a>
-        </li>
-    </ul>
-</div>
+    <li>
+        <a class="next" href="#" data-bind="click: pagination.next">
+            Следующая
+        </a>
+    </li>
+</ul>

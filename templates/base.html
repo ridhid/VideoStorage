@@ -23,19 +23,28 @@
             height: 640px;
             width: 900px;
         }
-        .modal {
-            width: 900px;
-            left: 40%;
+        .modal-dialog {
+            width: 70%;
+            margin: auto;
             top:3%;
         }
-        .modal-backdrop {
+        .modal-backdrop.in {
             opacity: 1;
+        }
+        .video {
+            margin: auto;
+            horizontal-align: middle;
         }
         .not_margin_left {
             margin-left: 0px;
         }
         .center {
-            left: 46.5%;
+            display: block;
+            margin: 0% auto;
+        }
+        img {
+            display: block;
+            margin: 10% auto;
         }
     </style>
 </head>
@@ -43,22 +52,22 @@
 <body>
     {% include "widgets/navbar.html" %}
     <div class="page-header">
-        <h1 align="center">Сервер. Видео сервер.</h1>
+        {% include 'cameras/widgets/header.html' %}
     </div>
     {% block content %}
     <div class="container-fluid" data-bind="if: visible() === 'record' ">
-        <div class="row-fluid">
+        <div class="row">
             <!--fs-->
-            <div class="span3">
+            <div class="col-3">
                 {% include 'widgets/fs.html' %}
                 {% include 'widgets/pagination.html' %}
             </div>
             <!--player-->
-            <div class="span6">
+            <div class="col-6">
                 {% include 'widgets/player.html' %}
             </div>
             <!--info-->
-            <div class="span3" data-bind="template: { name: 'info-template', data: info}">
+            <div class="col-3" data-bind="template: { name: 'info-template', data: info}">
             </div>
         </div>
     </div>

@@ -5,29 +5,29 @@
         <form class="form-horizontal" action='' method="POST">
           {% csrf_token %}
           <fieldset>
-            <div id="legend">
+            <div id="legend" class="col-lg-offset-2 col-lg-8">
               <legend class="">Логин</legend>
             </div>
-            <div class="control-group">
+            <div class="form-group">
               <!-- Username -->
-              <label class="control-label"  for="username">Пользователь</label>
-              <div class="controls">
-                <input type="text" id="username" name="username" placeholder="AD login приветствуется" class="input-xlarge">
+              <label class="col-lg-4 control-label"  for="username">Пользователь</label>
+              <div class="col-lg-3">
+                <input type="text" id="username" name="username" placeholder="AD login приветствуется" class="form-control">
               </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
               <!-- Password-->
-              <label class="control-label" for="password">Пароль</label>
-              <div class="controls">
-                <input type="password" id="password" name="password" placeholder="xxxxxxx" class="input-xlarge">
+              <label class="col-lg-4 control-label" for="password">Пароль</label>
+              <div class="col-lg-3">
+                <input type="password" id="password" name="password" placeholder="xxxxxxx" class="form-control">
               </div>
             </div>
 
 
-            <div class="control-group">
+            <div class="form-group">
               <!-- Button -->
-              <div class="controls">
+              <div class="col-lg-1 col-lg-offset-4">
                 <button class="btn btn-success">Login</button>
               </div>
             </div>

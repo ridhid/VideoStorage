@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-lg-2 col-lg-offset-1" data-bind="visible:  visible() === 'video'">
+        <div class="form-horizontal well-sm">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">На странице</span>
+                    <input class="form-control " type="number" data-bind="value: paginate_by"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">В строке   </span>
+                    <select class="form-control" data-bind="value: row">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-bind="attr: {'class': visible() === 'video' ? 'col-lg-6' : 'col-lg-6 col-lg-offset-3'} ">
+        <h1 align="center">Сервер. Видео сервер</h1>
+    </div>
+
+    <div class="col-lg-2 col-lg-offset-1 " data-bind="visible:  visible() === 'video'">
+        <div class="btn-group well">
+            <button class="btn pull-right page_btn" data-bind="click: $root.cams.next_page, visible: $root.cams.has_next_page()">
+                <i class="glyphicon glyphicon-arrow-right"></i>
+            </button>
+            <button class="btn pull-left page_btn" data-bind="click: $root.cams.prev_page, visible: $root.cams.has_prev_page()">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+</div>
